@@ -1,0 +1,84 @@
+run_id: comparative-2-transformer80m-ccdv/pubmed-summarization
+method: "ACR (Per-query Entropy Regularizer)"
+model:
+  name: transformer80m
+  description: "Transformer Encoder-Decoder ~80M params (6e/6d, d_model=512) with top-k sparse encoder self-attention"
+  architecture:
+    encoder_layers: 6
+    decoder_layers: 6
+    d_model: 512
+    attention:
+      encoder_self_attention: "sparse_topk"
+      k: 64
+      topk_mode: "exact"  # research prototype
+      decoder_attention: "dense"
+  regularizers:
+    scr:
+      enabled: false
+    acr:
+      enabled: true
+      lambda: 1e-4
+
+dataset:
+  name: "ccdv/pubmed-summarization"
+  task: summarization
+  splits:
+    train: train
+    validation: validation
+    test: test
+  preprocessing:
+    tokenizer: "default"
+    max_encoder_len: 4096
+    max_decoder_len: 512
+    truncate: true
+    pad_to_max_length: true
+    train_subsample: 50000
+    val_subsample: 2000
+
+training:
+  seed: 42
+  seeds: [42, 43, 44]
+  epochs: 5
+  batch_size: 2
+  grad_accum_steps: 8
+  precision: bf16
+  learning_rate: 2e-4
+  optimizer: adamw
+  scheduler: linear
+  warmup_steps: 2000
+  weight_decay: 0.01
+  gradient_clip: 1.0
+  label_smoothing: 0.1
+  dropout: 0.1
+  max_steps: null
+  log_every_n_steps: 50
+  eval_every_n_steps: 500
+  save_every_n_steps: 1000
+
+metrics:
+  primary: rougeL
+  secondary: ["rouge1", "rouge2", "segment_coverage_kl", "late_segment_mass", "tokens_per_sec", "peak_gpu_mem"]
+
+optuna:
+  enabled: true
+  n_trials: 20
+  direction: maximize
+  primary_metric: rougeL
+  search_spaces:
+    - param_name: acr_lambda
+      distribution_type: loguniform
+      low: 1e-06
+      high: 0.0005
+    - param_name: learning_rate
+      distribution_type: loguniform
+      low: 5e-05
+      high: 0.0005
+    - param_name: dropout
+      distribution_type: uniform
+      low: 0.0
+      high: 0.2
+
+runner:
+  labels: ["self-hosted", "gpu-runner"]
+  cuda: "12.x"
+  pytorch: "2.x"

@@ -1,1 +1,25 @@
-test: true
+defaults:
+  - _self_
+  - run: comparative-1-transformer80m-ccdv/arxiv-summarization
+
+mode: full
+results_dir: results
+
+wandb:
+  entity: wkumagai
+  project: airas-test
+  mode: online
+
+# the selected run config is accessible as cfg.run
+# keep top-level aliases for convenience (used by scripts)
+training: ${run.training}
+dataset: ${run.dataset}
+model: ${run.model}
+metrics: ${run.metrics}
+optuna: ${run.optuna}
+
+hydra:
+  run:
+    dir: ${results_dir}/hydra/${run.run_id}/${now:%Y-%m-%d_%H-%M-%S}
+  job:
+    chdir: false

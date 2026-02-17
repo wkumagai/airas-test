@@ -1,2 +1,26 @@
 [project]
-name="test"
+name = "scr-sparse-summarization"
+version = "0.1.0"
+description = "Sparse top-k long-document summarization with Segment Coverage Regularizer (SCR)"
+requires-python = ">=3.10"
+dependencies = [
+  "hydra-core>=1.3.2",
+  "omegaconf>=2.3.0",
+  "torch>=2.1.0",
+  "transformers>=4.39.0",
+  "datasets>=2.16.0",
+  "sentencepiece>=0.1.99",
+  "wandb>=0.16.0",
+  "optuna>=3.5.0",
+  "numpy>=1.24.0",
+  "pandas>=2.0.0",
+  "matplotlib>=3.7.0",
+  "seaborn>=0.13.0",
+]
+
+[tool.uv]
+package = false
+
+[tool.hydra]
+# keep defaults
+
