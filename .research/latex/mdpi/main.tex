@@ -1,1 +1,288 @@
-\documentclass{article}\begin{document}Hello\end{document}
+%  LaTeX support: latex@mdpi.com 
+%  For support, please attach all files needed for compiling as well as the log file, and specify your operating system, LaTeX version, and LaTeX editor.
+
+%=================================================================
+\documentclass[journal,article,submit,pdftex,moreauthors]{Definitions/mdpi}
+
+%=================================================================
+% MDPI internal commands - do not modify
+\firstpage{1} 
+\makeatletter 
+\setcounter{page}{\@firstpage} 
+\makeatother
+\pubvolume{1}
+\issuenum{1}
+\articlenumber{0}
+\pubyear{2026}
+\copyrightyear{2026}
+%\externaleditor{Firstname Lastname} % More than 1 editor, please add `` and '' before the last editor name
+\datereceived{ } 
+\daterevised{ } % Comment out if no revised date
+\dateaccepted{ } 
+\datepublished{ } 
+%\datecorrected{} % For corrected papers: "Corrected: XXX" date in the original paper.
+%\dateretracted{} % For retracted papers: "Retracted: XXX" date in the original paper.
+%\doinum{} % Used for some special journals, like molbank
+%\pdfoutput=1 % Uncommented for upload to arXiv.org
+%\CorrStatement{yes}  % For updates
+%\longauthorlist{yes} % For many authors that exceed the left citation part
+%\IsAssociation{yes} % For association journals
+
+%=================================================================
+% Add packages and commands here. The following packages are loaded in our class file: fontenc, inputenc, calc, indentfirst, fancyhdr, graphicx, epstopdf, lastpage, ifthen, float, amsmath, amssymb, lineno, setspace, enumitem, mathpazo, booktabs, titlesec, etoolbox, tabto, xcolor, colortbl, soul, multirow, microtype, tikz, totcount, changepage, attrib, upgreek, array, tabularx, pbox, ragged2e, tocloft, marginnote, marginfix, enotez, amsthm, natbib, hyperref, cleveref, scrextend, url, geometry, newfloat, caption, draftwatermark, seqsplit
+% cleveref: load \crefname definitions after \begin{document}
+
+%=================================================================
+% Please use the following mathematics environments: Theorem, Lemma, Corollary, Proposition, Characterization, Property, Problem, Example, ExamplesandDefinitions, Hypothesis, Remark, Definition, Notation, Assumption
+%% For proofs, please use the proof environment (the amsthm package is loaded by the MDPI class).
+
+%=================================================================
+% Full title of the paper (Capitalized)
+\Title{Segment Coverage Regularization for Selector-Agnostic Sparse Attention in Long-Document Summarization}
+
+% Author Orchid ID: enter ID or remove command
+\newcommand{\orcidauthorA}{0000-0000-0000-000X} % Add \orcidA{} behind the author's name
+%\newcommand{\orcidauthorB}{0000-0000-0000-000X} % Add \orcidB{} behind the author's name
+
+% Authors, for the paper (add full first names)
+\Author{Firstname Lastname $^{1}$\orcidA{}, Firstname Lastname $^{2}$ and Firstname Lastname $^{2,}$*}
+
+%\longauthorlist{yes}
+
+% MDPI internal command: Authors, for metadata in PDF
+\AuthorNames{Firstname Lastname, Firstname Lastname and Firstname Lastname}
+
+% Affiliations / Addresses (Add [1] after \address if there is only one affiliation.)
+\address{%
+$^{1}$ \quad Affiliation 1; e-mail@e-mail.com\\
+$^{2}$ \quad Affiliation 2; e-mail@e-mail.com}
+
+% Contact information of the corresponding author
+\corres{Correspondence: e-mail@e-mail.com; Tel.: (optional; include country code; if there are multiple corresponding authors, add author initials) +xx-xxxx-xxx-xxxx (F.L.)}
+
+% Current address and/or shared authorship
+%\firstnote{Current address: Affiliation.}
+% Current address should not be the same as any items in the Affiliation section.
+
+%\secondnote{These authors contributed equally to this work.}
+% The commands \thirdnote{} till \eighthnote{} are available for further notes.
+
+%\simplesumm{} % Simple summary
+
+%\conference{} % An extended version of a conference paper
+
+% Abstract (Do not insert blank lines, i.e. \\)
+\abstract{Dynamic and top-k sparse attention mechanisms are a pragmatic route to scaling Transformers to long documents, but they often fail through systematic under-coverage: across heads and layers, the same few document regions (for example early tokens or boilerplate) are repeatedly selected while later evidence is never retrieved. This creates blind spots that harm long-range factual consistency and increases variance across documents and random seeds. We propose Segment Coverage Regularization (SCR), an auxiliary objective that is orthogonal to the sparse selector and does not densify attention or add retrieval passes. SCR partitions the document into coarse position segments and penalizes the KL divergence between the aggregated sparse-attention mass over segments and a target prior (uniform or mildly late-upweighted). SCR uses only already-materialized sparse indices and weights, preserving the per-query top-k sparsity pattern and asymptotic inference complexity. We integrate SCR into an encoder–decoder summarization model with exact top-k encoder self-attention and evaluate on long-input arXiv and PubMed summarization. The only executed experiments are trial-mode end-to-end smoke tests that confirm correctness of training, backpropagation, and metric computation pipelines; as expected from two training steps, all methods achieve ROUGE-L of 0.0. Full-scale GPU training is required to validate SCR’s expected improvements in ROUGE and attention-derived coverage metrics.}
+
+% Keywords
+\keyword{keyword 1; keyword 2; keyword 3 (List three to ten pertinent keywords specific to the article; yet reasonably common within the subject discipline.)}
+
+% The fields PACS, MSC, and JEL may be left empty or commented out if not applicable
+%\PACS{J0101}
+%\MSC{}
+%\JEL{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Diversity
+%\LSID{\url{http://}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Applied Sciences
+%\featuredapplication{Authors are encouraged to provide a concise description of the specific application or a potential application of the work. This section is not mandatory.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Data
+%\dataset{DOI number or link to the deposited data set if the data set is published separately. If the data set shall be published as a supplement to this paper, this field will be filled by the journal editors. In this case, please submit the data set as a supplement.}
+%\datasetlicense{License under which the data set is made available (CC0, CC-BY, CC-BY-SA, CC-BY-NC, etc.)}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal BioTech, Fishes, Neuroimaging and Toxins
+%\keycontribution{The breakthroughs or highlights of the manuscript. Authors can write one or two sentences to describe the most important part of the paper.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Encyclopedia
+%\encyclopediadef{For entry manuscripts only: please provide a brief overview of the entry title instead of an abstract.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Different journals have different requirements. Please check the specific journal guidelines in the "Instructions for Authors" on the journal's official website.
+%\addhighlights{yes}
+%\renewcommand{\addhighlights}{%
+%
+%\noindent The goal is to increase the discoverability and readability of the article via search engines and other scholars. Highlights should not be a copy of the abstract, but a simple text allowing the reader to quickly and simplified find out what the article is about and what can be cited from it. Each of these parts should be devoted up to 2~bullet points.\vspace{3pt}\\
+%\textbf{What are the main findings?}
+% \begin{itemize}[labelsep=2.5mm,topsep=-3pt]
+% \item First bullet.
+% \item Second bullet.
+% \end{itemize}\vspace{3pt}
+%\textbf{What are the implications of the main findings?}
+% \begin{itemize}[labelsep=2.5mm,topsep=-3pt]
+% \item First bullet.
+% \item Second bullet.
+% \end{itemize}
+%}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+
+Long-document applications such as scientific and medical summarization require models to integrate evidence distributed across thousands of tokens. Standard dense self-attention scales quadratically with sequence length, motivating a large family of efficient attention mechanisms that reduce compute or memory by restricting which keys are attended to, approximating attention, or reparameterizing it [author-year-efficient,author-year-transformers,author-year-mobile]. A prominent approach is dynamic or top-k sparse attention, where each query attends only to k selected keys. Sparse attention can preserve the expressivity of dot-product attention while reducing the effective per-query context, and it is compatible with modern kernel optimizations in long-context inference settings [author-year-fast,author-year-flexprefill].
+
+However, sparse attention introduces a retrieval problem: if important evidence is not selected, it cannot influence downstream representations regardless of how the model weights the selected keys. The motivating hypothesis in this work is that failures of dynamic/top-k selectors on long documents arise not only from overly “peaky” attention weights but from systematic under-coverage of document regions. Across layers and heads, selectors can repeatedly choose keys from a small set of segments (often early tokens, headings, or boilerplate), creating blind spots where later evidence is never retrieved. This mechanism plausibly contributes to long-range factual inconsistency and high variance across documents and random seeds. Existing fixes typically modify the selector itself or add heuristics. This leaves a gap for an orthogonal, selector-agnostic objective that enforces global coverage while keeping the same sparse attention compute pattern.
+
+This paper introduces Segment Coverage Regularization (SCR), a document-level auxiliary objective that can be applied on top of any top-k sparse attention mechanism that outputs selected indices and corresponding attention weights. SCR partitions the input sequence into S coarse position segments and measures, for each layer and head, the aggregated attention mass assigned to each segment across all queries. It then penalizes the divergence between this induced segment distribution and a target prior distribution over segments. The default prior is uniform, but we also consider a length-aware prior that mildly upweights later segments to counter early-token dominance.
+
+The key design goal is to change retrieval behavior without densifying attention. SCR uses only already-materialized sparse attention outputs (indices and weights), so it does not require additional passes over the sequence, additional retrieval modules, or changes to k. The computation is linear in the number of selected edges (proportional to B times L times H times T times k), with small constants, and thus preserves the asymptotic efficiency motivations for sparse attention.
+
+We test SCR in a long-document abstractive summarization setting. The task is to read up to 4096 encoder tokens from a scientific article and generate a summary up to 512 tokens. We implement a 6-layer encoder–decoder Transformer (d_model=512) whose encoder uses exact top-k sparse self-attention with k=64. We compare four methods under matched architecture and training protocol: (A) sparse top-k baseline without auxiliary losses, (B) a per-query entropy regularizer (ACR) that smooths attention within the selected top-k set, (C) SCR (proposed), and (D) SCR plus a weak ACR term as an ablation.
+
+The current experimental record contains only trial-mode smoke tests designed to validate end-to-end correctness, not to measure final summarization quality. In these runs, training is limited to two optimization steps and evaluation uses only 10 validation samples with shorter lengths (512 encoder tokens, 32 decoder tokens). As expected for an essentially untrained model, all configurations yield ROUGE-L of 0.0 on both arXiv and PubMed summarization. These results establish that SCR integrates into training without breaking backpropagation or evaluation, and that mechanistic metrics can be computed in the model forward pass. Full-scale GPU training is required to evaluate the hypothesis that SCR improves evidence recall, reduces coverage KL, increases late-segment mass, and yields more stable ROUGE across seeds.
+
+Contributions:
+- We identify and formalize a sparse-attention failure mode as systematic under-coverage of document regions, distinct from per-query peakiness, and motivate coverage-based diagnostics.
+- We propose Segment Coverage Regularization (SCR), a selector-agnostic, document-level objective that enforces approximate global segment coverage using only sparse attention outputs.
+- We provide an efficient implementation that preserves top-k sparsity and does not require extra retrieval passes.
+- We build an experimental framework for long-document summarization with attention-derived coverage metrics and demonstrate end-to-end pipeline viability via trial-mode runs on arXiv and PubMed.
+
+Future work includes executing the planned full training regime, evaluating SCR across different sparse selectors (for example predictable sparse attention, kNN-based selection, or context-aware sparse prefill methods) [author-year-long,author-year-knn,author-year-flexprefill], and studying alternative priors that reflect task structure (for example section-aware segmentation) while maintaining selector agnosticism.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Related Work}
+
+Efficient attention for long sequences spans several families of approaches that differ in what they approximate and where they impose structure. Linear-attention methods reparameterize attention to avoid explicit T by T interactions, enabling fast autoregressive processing and long-context modeling, but their inductive biases differ from dot-product softmax attention and may trade accuracy for efficiency in some tasks [author-year-transformers,author-year-mobile]. In contrast, sparse attention methods retain dot-product similarity but restrict computation to a subset of key positions per query. Predictable sparse attention and related structured sparsity designs constrain the attention pattern to be learnable yet efficiently computable, often with guarantees about receptive fields or pattern regularity [author-year-long]. Dynamic sparse attention methods compute query–key scores and then select a top-k subset, aiming to approximate dense attention while controlling compute, and modern implementations target GPU efficiency for long sequences [author-year-fast]. FlexPrefill and related inference-time sparse mechanisms focus on accelerating long-context inference by selecting context tokens in a context-aware manner during prefill, emphasizing kernel compatibility and practical deployment constraints [author-year-flexprefill].
+
+Our work is complementary to these approaches because it does not propose a new selector. Instead, SCR is an auxiliary objective that can be layered onto any method that returns sparse attention indices and weights. This differs from selector redesign, where improvements typically come from changing how candidates are scored or how sparsity is structured. As a result, SCR is intended to be orthogonal: a predictable sparse pattern could still under-cover certain segments in aggregate, and a dynamic selector could still collapse repeatedly onto early segments. SCR targets this aggregate behavior directly.
+
+Regularization of attention has been explored in different forms, including encouraging higher entropy or discouraging overly concentrated distributions. The per-query entropy baseline (ACR) used in our experiments falls into this class: it encourages each query’s attention over its selected keys to be less peaky. Compared to SCR, entropy regularization operates locally at the query level and does not explicitly prevent the model from repeatedly selecting keys from the same region across queries, heads, and layers. In the failure mode we target, a model may assign smooth weights within the selected top-k set while still never selecting evidence from late document regions. SCR addresses this by aggregating mass at the document level and enforcing a coverage constraint.
+
+Benchmarking work on long-sequence attention emphasizes that comparisons must be made under matched compute and memory budgets, and that efficiency interventions can change both quality and robustness [author-year-cab]. In this spirit, our proposed evaluation includes both standard summarization metrics (ROUGE) and mechanistic coverage diagnostics computed from sparse attention outputs, together with throughput and memory measurements. The current paper reports only smoke-test outcomes, but the framework is designed to enable fair comparisons between sparse baselines, local attention smoothing, and SCR under fixed k.
+
+Finally, kNN-based sparse selection can be viewed as a form of approximate retrieval in embedding space, with theoretical analyses of scalability and approximation behavior [author-year-knn]. Although our prototype uses exact top-k over dot-product scores, SCR is compatible with kNN attention in principle because it regularizes the distribution of selected positions rather than the retrieval mechanism itself. This selector-agnostic aspect is central to our contribution.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Background}
+
+Transformers compute contextual representations by attending from each query position to all key positions, using similarity scores followed by softmax normalization. Dense self-attention has quadratic complexity in the sequence length, which motivates sparse variants that attend to only k keys per query while retaining the same basic dot-product structure. In sparse top-k self-attention, for each query position i, attention is computed over a selected set of key indices idx(i) of size k, and the attention weights attn(i, t) are a softmax over the selected keys. The output at i is the weighted sum of the corresponding value vectors. In our prototype, selection is performed by computing full dot-product scores and taking exact top-k, which is computationally expensive but simplifies research comparisons and isolates the effect of regularization.
+
+Problem setting and notation. Consider an input sequence of length T, processed by an encoder with L layers and H attention heads. For each batch element b, layer ℓ, head h, and query position i in {0,…,T−1}, the sparse attention module outputs (1) a vector of selected key indices idx_{b,ℓ,h,i} of length k, where each entry is an integer in {0,…,T−1}, and (2) the corresponding normalized attention weights attn_{b,ℓ,h,i} over those k keys, with nonnegative entries summing to 1. We assume the selector is fixed by the model and attention mechanism; SCR will not modify idx during inference, and it will not require additional key candidates beyond the selected k.
+
+Systematic under-coverage can be expressed at a coarser granularity by partitioning the sequence positions into S segments. Let s(j) map a key position j to its segment id in {0,…,S−1}, for example s(j) = floor(S * j / T). For a given (b,ℓ,h), we define a segment-mass vector m_{b,ℓ,h} in R^S by accumulating attention mass assigned to keys in each segment, averaged over all queries. This aggregation converts many sparse per-query distributions into a single document-level distribution over segments.
+
+Coverage objective. Given a target prior distribution over segments π in R^S (with π_s ≥ 0 and sum_s π_s = 1), coverage can be measured using KL divergence KL(m || π) = sum_s m_s log(m_s / π_s). A uniform π encourages equal expected attention mass over segments, while a mildly late-upweighted π can counteract the empirical tendency to over-attend early positions in long documents.
+
+Evaluation context. We study long-document abstractive summarization, where the input is a scientific article and the output is a shorter abstract-like summary. Model quality is evaluated with ROUGE metrics, especially ROUGE-L, which measures longest common subsequence overlap between generated and reference summaries. Because SCR is motivated by retrieval behavior, we also define mechanistic attention-derived metrics: the segment coverage KL itself (lower is better) and the fraction of mass assigned to the last quarter of segments (higher is better), which acts as a proxy for retrieving late evidence.
+
+The background concepts above situate SCR among long-sequence modeling methods while keeping the focus on a simple and measurable definition of coverage that can be computed from sparse attention outputs.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Method}
+
+Our method adds a Segment Coverage Regularizer (SCR) to models that use top-k sparse attention. SCR is designed to be selector-agnostic: it does not alter how idx is chosen, it does not increase k, and it does not require computing attention to any additional keys. Instead, it introduces a document-level auxiliary loss computed from the sparse attention weights and indices that are already produced during the forward pass.
+
+Segment partitioning. Given sequence length T and a chosen number of segments S, we define a deterministic mapping from key position j to segment id s(j) = clamp(floor(S * j / T), 0, S−1). This yields contiguous segments that cover the entire document from early to late positions.
+
+Soft segment assignment for selected keys. For each batch b, layer ℓ, and head h, and for each query position i, sparse attention returns idx_{b,ℓ,h,i,t} and attn_{b,ℓ,h,i,t} for t in {1,…,k}. We accumulate attention mass into segments using the segment ids of the selected keys:
+For each segment s, define
+m_{b,ℓ,h,s} = (1/T) sum_i sum_t attn_{b,ℓ,h,i,t} * 1[s(idx_{b,ℓ,h,i,t}) = s].
+After accumulation, we normalize m_{b,ℓ,h} across segments to form a proper distribution: m <- m / (sum_s m_s + eps). In our implementation, the accumulation is computed efficiently via a scatter-add operation over the flattened selected edges, with computational cost proportional to the number of selected keys (B * H * T * k) per layer.
+
+Target prior over segments. SCR compares m to a target prior π. The default is uniform, π_s = 1/S. We also support a length-aware prior that mildly upweights later segments:
+Define weights w_s = 1 + alpha_late * (s / max(S−1, 1)), and set π_s = w_s / sum_r w_r.
+When alpha_late > 0, this prior counteracts early-token dominance without forcing extreme attention to late segments.
+
+Coverage loss. The SCR loss is defined as
+L_scr = lambda * mean_{b,ℓ,h} KL(m_{b,ℓ,h} || π).
+Here lambda controls the strength of the auxiliary objective relative to the task loss. Because the loss is computed from attn and idx, gradients flow into the attention logits and thus into the model parameters that influence sparse attention, but the loss does not require differentiating through the discrete top-k selection itself.
+
+Optional anti-collapse within the selected set. SCR targets global segment under-coverage. To prevent within-top-k collapse (for example a few keys dominating a query’s k selections), we optionally combine SCR with a weak per-query entropy regularizer (ACR):
+L_acr = -lambda_acr * mean entropy(attn_{b,ℓ,h,i}).
+In this combined setting, SCR remains the main driver and ACR is downweighted.
+
+Overall training objective. For summarization, the base objective is teacher-forced cross-entropy with label smoothing. The final loss is
+L = L_task + sum_layers (L_scr + L_acr),
+where the sum is implicit in the implementation by accumulating auxiliary losses across encoder layers.
+
+Diagnostics derived from SCR. The same aggregated segment distribution m can be used to compute mechanistic metrics during training and evaluation: (1) the mean segment coverage KL (lower is better) and (2) late-segment mass, defined as the sum of m_s over the last quarter of segments (higher is better). These metrics provide direct evidence that SCR changes retrieval coverage rather than merely affecting output text overlap.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Experimental Setup}
+
+Task and datasets. We study long-document abstractive summarization on two publicly available datasets: arXiv summarization and PubMed summarization, using the HuggingFace dataset identifiers ccdv/arxiv-summarization and ccdv/pubmed-summarization. Each example contains a long article field and a shorter abstract field. Inputs are tokenized and truncated or padded to a fixed maximum encoder length of 4096 tokens, and targets are tokenized and truncated or padded to a fixed maximum decoder length of 512 tokens.
+
+Model. The summarizer is a Transformer encoder–decoder with 6 encoder layers and 6 decoder layers, hidden size d_model=512, and 8 attention heads. The encoder uses top-k sparse self-attention with k=64 and exact top-k selection for research prototyping. The decoder uses dense causal self-attention and dense cross-attention to the encoder memory. The model uses learned token embeddings and learned positional embeddings for encoder and decoder with maximum lengths matching the truncation lengths.
+
+Methods compared. All methods share the same architecture, dataset preprocessing, and training hyperparameters; they differ only in auxiliary attention regularization applied in the encoder:
+A) Sparse Top-k Baseline: no auxiliary regularizer.
+B) ACR: per-query entropy regularizer with lambda set in the run config (default 1e-4).
+C) SCR (proposed): segment coverage regularizer with S=32, lambda=5e-4, and alpha_late=0.2.
+D) SCR+Weak ACR: SCR plus a weak entropy term (lambda_acr=1e-5).
+
+Training protocol. Training uses AdamW optimizer with learning rate 2e-4, weight decay 0.01, gradient clipping at 1.0, linear warmup and decay with 2000 warmup steps, dropout 0.1, and label smoothing 0.1. The per-GPU batch size is 2 with gradient accumulation steps of 8 to reach a larger effective batch size. Mixed precision is enabled with bf16. For each method, three random seeds are planned (42, 43, 44). The configuration supports Optuna hyperparameter search (20 trials) over regularizer strength and segmentation parameters (scr_lambda, num_segments, alpha_late) as well as learning rate, but no Optuna-derived results are reported in the executed experiments.
+
+Evaluation metrics. The primary metric is ROUGE-L. Secondary metrics include ROUGE-1 and ROUGE-2, plus mechanistic attention-derived metrics: Segment Coverage KL (lower is better) and Late-Segment Mass in the last quarter of segments (higher is better). Efficiency metrics are tokens per second and peak GPU memory, computed from runtime logging (tokens/s) and torch.cuda.max_memory_allocated (peak memory).
+
+What was actually executed. The only available runs are trial-mode smoke tests executed on CPU to validate the pipeline. In trial mode, training runs for 2 optimization steps on 100 training samples with batch size 2 and a single seed (42). Evaluation uses 10 validation samples and reduced sequence lengths (max_encoder_len=512, max_decoder_len=32) to keep runtime small. All four method configurations were executed on both datasets and completed without errors, confirming that the regularizers and metrics compute end-to-end.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Results}
+
+This section reports only results that were actually produced by the executed experiments. The available results are trial-mode smoke tests intended to verify end-to-end correctness rather than summarization quality. Because training is limited to two optimization steps, the model is effectively untrained and the generation outputs are not expected to match references. Consequently, ROUGE scores are zero for all methods, and no comparative claims about SCR’s effectiveness can be supported by these runs.
+
+Experiment 1: Trial-mode end-to-end validation on arXiv summarization. We ran four configurations (Sparse Top-k Baseline, ACR, SCR+Weak ACR, and SCR) on ccdv/arxiv-summarization with the trial-mode settings described in the experimental setup. The best validation ROUGE-L mean reported by the pipeline is 0.0000 with standard deviation 0.0000 for all methods. This confirms that the training loop, sparse attention module, regularizer computations, decoding, and ROUGE evaluation execute without runtime errors under the arXiv dataset.
+
+Experiment 2: Trial-mode end-to-end validation on PubMed summarization. Under the same trial-mode settings, we ran the same four configurations on ccdv/pubmed-summarization. Again, the best validation ROUGE-L mean is 0.0000 with standard deviation 0.0000 for all methods. This similarly confirms end-to-end execution on PubMed.
+
+Summary of executed numerical results. The full set of reported trial metrics is:
+- Sparse Top-k Baseline: arXiv ROUGE-L 0.0 ± 0.0; PubMed ROUGE-L 0.0 ± 0.0.
+- ACR: arXiv ROUGE-L 0.0 ± 0.0; PubMed ROUGE-L 0.0 ± 0.0.
+- SCR+Weak ACR: arXiv ROUGE-L 0.0 ± 0.0; PubMed ROUGE-L 0.0 ± 0.0.
+- SCR (proposed): arXiv ROUGE-L 0.0 ± 0.0; PubMed ROUGE-L 0.0 ± 0.0.
+
+Figures. No figures were provided in the available experimental artifacts (the figures list is empty), so no figure embeddings are included.
+
+Limitations of current evidence. These results do not test the central hypothesis that SCR improves global retrieval coverage and long-range evidence recall. Mechanistic metrics (Segment Coverage KL, Late-Segment Mass) and efficiency metrics (tokens/s, peak memory) are defined and instrumented in the code, but they are not present in the reported trial summary table. Moreover, trial mode uses a single seed, short sequences, and too few optimization steps to meaningfully compare methods. The only supported conclusion is implementation feasibility and pipeline readiness.
+
+Planned but not yet executed analyses. The intended full experiments would train for multiple epochs with 4096-token encoder inputs, evaluate on larger validation and test sets, and report mean and standard deviation across three seeds, including coverage KL and late-segment mass to directly verify the mechanistic claim. These outcomes are not available in the current logs and are therefore not reported here.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Discussion}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusions}
+
+This paper proposed Segment Coverage Regularization (SCR), a selector-agnostic auxiliary objective for top-k sparse attention that targets a specific long-document failure mode: systematic under-coverage of document regions across queries, heads, and layers. SCR aggregates already-computed sparse attention weights and indices into a coarse distribution over positional segments and penalizes KL divergence to a target prior, encouraging global coverage without increasing k, densifying attention, or adding extra retrieval passes. We integrated SCR into a long-document encoder–decoder summarization model with exact top-k sparse encoder self-attention and defined both standard summarization metrics (ROUGE) and mechanistic diagnostics (segment coverage KL and late-segment mass).
+
+The only executed experiments were trial-mode smoke tests on arXiv and PubMed summarization that ran end-to-end and produced ROUGE-L of 0.0 for all methods, as expected from two training steps. These outcomes validate implementation feasibility but do not provide evidence about SCR’s effectiveness. The next step is full-scale GPU training under the provided experimental design to test whether SCR improves coverage diagnostics, reduces variance across seeds, and yields better ROUGE at fixed sparse compute. More broadly, SCR reframes sparse-attention failures as a coverage-constrained retrieval problem, suggesting future work on adaptive segment priors, interactions with different sparse selectors, and coverage metrics better aligned with downstream factuality requirements.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vspace{6pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\authorcontributions{For research articles with several authors, a short paragraph specifying their individual contributions must be provided. The following statements should be used ``Conceptualization, X.X. and Y.Y.; methodology, X.X.; software, X.X.; validation, X.X., Y.Y. and Z.Z.; formal analysis, X.X.; investigation, X.X.; resources, X.X.; data curation, X.X.; writing---original draft preparation, X.X.; writing---review and editing, X.X.; visualization, X.X.; supervision, X.X.; project administration, X.X.; funding acquisition, Y.Y. All authors have read and agreed to the published version of the manuscript.'', please turn to the  \href{http://img.mdpi.org/data/contributor-role-instruction.pdf}{CRediT taxonomy} for the term explanation. Authorship must be limited to those who have contributed substantially to the work~reported.}
+
+\funding{This research received no external funding.}
+
+\dataavailability{All resources used in this study are openly available at }
+
+\acknowledgments{In this study, we automatically carried out a series of research processes—from hypothesis formulation to paper writing—using generative AI.}
+
+\conflictsofinterest{The authors declare no conflicts of interest.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\isPreprints{}{% This command is only used for ``preprints''.
+\begin{adjustwidth}{-\extralength}{0cm}
+%} % If the paper is ``preprints'', please uncomment this parenthesis.
+%\printendnotes[custom] % Un-comment to print a list of endnotes
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\PublishersNote{}
+%\isPreprints{}{% This command is only used for ``preprints''.
+\end{adjustwidth}
+%} % If the paper is ``preprints'', please uncomment this parenthesis.
+\end{document}
